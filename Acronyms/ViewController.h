@@ -10,6 +10,9 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic, retain) IBOutlet UITextField *inputField;
+
+- (IBAction)searchDown:(id)sender;
 
 @end
 
