@@ -11,10 +11,15 @@
 
 #import "ViewController.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "MBProgressHUD.h"
+#import <unistd.h>
 
 NSArray *assetData;
 
-@interface ViewController ()
+@interface ViewController () <MBProgressHUDDelegate> {
+    MBProgressHUD *HUD;
+}
+
 
 @end
 
@@ -33,8 +38,20 @@ NSArray *assetData;
 #pragma mark IB Events
 
 //user tapped button
-- (IBAction)searchDown:(id)sender{
+- (IBAction)searchTap:(id)sender{
     NSLog( @"search Down %@", self.inputField.text );
+    // The hud will dispable all input on the view (use the higest view possible in the view hierarchy)
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    
+    // Regiser for HUD callbacks so we can remove it from the window at the right time
+    HUD.delegate = self;
+    
+    // Show the HUD while the provided method executes in a new thread
+    [HUD showWhileExecuting:@selector(searchTask) onTarget:self withObject:nil animated:YES];
+}
+
+- (void)searchTask {
     NSDictionary *parameters = @{@"sf": self.inputField.text};
     
     
@@ -43,9 +60,6 @@ NSArray *assetData;
     [manager GET:@"http://www.nactem.ac.uk/software/acromine/dictionary.py"
       parameters: parameters
       success: ^(AFHTTPRequestOperation *operation, id responseObject) {
-          //NSMutableArray *result = [NSJSONSerialization
-          //                          JSONObjectWithData: responseObject
-          //                          options:NSJSONReadingMutableContainers error:nil];
           assetData = responseObject;
           
           NSLog(@"JSON: %@", responseObject);
@@ -53,7 +67,6 @@ NSArray *assetData;
               NSDictionary *inner = [responseObject objectAtIndex: 0];
               NSLog(@"sf: %@", [inner objectForKey: @"sf"]);
               NSLog(@"lfs: %lu", [[inner objectForKey: @"lfs"] count]);
-              //NSLog(@"lfs: %@", [[inner objectForKey: @"lfs"] objectAtIndex: 1 ]);
           }
           [myTableView reloadData];
       }
@@ -61,7 +74,7 @@ NSArray *assetData;
         NSLog(@"Error: %@", error);
       }
     ];
-    
+    NSLog( @"Search task complete" );
 }
 
 #pragma mark Table view methods
@@ -92,17 +105,10 @@ NSArray *assetData;
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        /*
         cell.layer.cornerRadius = 10;
-        UIView *tf = [[UIView alloc] init];
-        tf.backgroundColor = [UIColor lightGrayColor];
-        tf.frame = CGRectMake(275, 14, 15, 15);
-        tf.layer.cornerRadius = 5.0f;
-        [cell.contentView addSubview: tf];
-        */
     }
     
-    NSLog( @"cellForRowAtIndexPath %li", indexPath.row );
+    //NSLog( @"cellForRowAtIndexPath %li", indexPath.row );
     NSDictionary *inner = [assetData objectAtIndex: 0];
     NSDictionary *lfo = [[inner objectForKey: @"lfs"] objectAtIndex: indexPath.section];
     NSArray *vars = [lfo objectForKey: @"vars"];

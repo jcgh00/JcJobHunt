@@ -23,6 +23,7 @@
 		D3551C941C21575600A83713 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = D3551C891C21575500A83713 /* AFURLRequestSerialization.m */; };
 		D3551C951C21575600A83713 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = D3551C8B1C21575500A83713 /* AFURLResponseSerialization.m */; };
 		D3551C961C21575600A83713 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3551C8D1C21575500A83713 /* AFURLSessionManager.m */; };
+		D3551C9A1C229D4000A83713 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D3551C991C229D4000A83713 /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,8 @@
 		D3551C8B1C21575500A83713 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		D3551C8C1C21575500A83713 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		D3551C8D1C21575500A83713 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		D3551C981C229D4000A83713 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = "../Lib-use/MBProgressHUD-master/MBProgressHUD.h"; sourceTree = "<group>"; };
+		D3551C991C229D4000A83713 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = "../Lib-use/MBProgressHUD-master/MBProgressHUD.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +154,7 @@
 		D3551C781C21568D00A83713 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				D3551C971C229CF100A83713 /* MBProgressHUD */,
 				D3551C7A1C21575500A83713 /* AFNetworking */,
 			);
 			name = Vendor;
@@ -181,6 +185,15 @@
 			);
 			name = AFNetworking;
 			path = "../Lib-use/AFNetworking-2.5.4/AFNetworking";
+			sourceTree = "<group>";
+		};
+		D3551C971C229CF100A83713 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				D3551C981C229D4000A83713 /* MBProgressHUD.h */,
+				D3551C991C229D4000A83713 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,6 +305,7 @@
 				D3551C921C21575600A83713 /* AFSecurityPolicy.m in Sources */,
 				D3551C901C21575600A83713 /* AFHTTPSessionManager.m in Sources */,
 				D3551C941C21575600A83713 /* AFURLRequestSerialization.m in Sources */,
+				D3551C9A1C229D4000A83713 /* MBProgressHUD.m in Sources */,
 				D3551C961C21575600A83713 /* AFURLSessionManager.m in Sources */,
 				D349E2681C16A1420039F7F1 /* AppDelegate.m in Sources */,
 				D349E2651C16A1420039F7F1 /* main.m in Sources */,

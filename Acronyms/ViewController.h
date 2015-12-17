@@ -15,7 +15,7 @@
 
 @property (nonatomic, retain) IBOutlet UITextField *inputField;
 
-- (IBAction)searchDown:(id)sender;
+- (IBAction)searchTap:(id)sender;
 
 @end
 
