@@ -49,10 +49,12 @@ NSArray *assetData;
           assetData = responseObject;
           
           NSLog(@"JSON: %@", responseObject);
-          NSDictionary *inner = [responseObject objectAtIndex: 0];
-          NSLog(@"sf: %@", [inner objectForKey: @"sf"]);
-          NSLog(@"lfs: %lu", [[inner objectForKey: @"lfs"] count]);
-          //NSLog(@"lfs: %@", [[inner objectForKey: @"lfs"] objectAtIndex: 1 ]);
+          if ([responseObject count] > 0) {
+              NSDictionary *inner = [responseObject objectAtIndex: 0];
+              NSLog(@"sf: %@", [inner objectForKey: @"sf"]);
+              NSLog(@"lfs: %lu", [[inner objectForKey: @"lfs"] count]);
+              //NSLog(@"lfs: %@", [[inner objectForKey: @"lfs"] objectAtIndex: 1 ]);
+          }
           [myTableView reloadData];
       }
       failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -75,7 +77,9 @@ NSArray *assetData;
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    NSDictionary *inner = [assetData objectAtIndex: 0];
+    NSDictionary *lfo = [[inner objectForKey: @"lfs"] objectAtIndex: section];
+    return [[lfo objectForKey: @"vars"] count]+1;
 }
 
 
@@ -88,21 +92,33 @@ NSArray *assetData;
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        /*
         cell.layer.cornerRadius = 10;
         UIView *tf = [[UIView alloc] init];
         tf.backgroundColor = [UIColor lightGrayColor];
         tf.frame = CGRectMake(275, 14, 15, 15);
         tf.layer.cornerRadius = 5.0f;
         [cell.contentView addSubview: tf];
+        */
     }
     
+    NSLog( @"cellForRowAtIndexPath %li", indexPath.row );
     NSDictionary *inner = [assetData objectAtIndex: 0];
     NSDictionary *lfo = [[inner objectForKey: @"lfs"] objectAtIndex: indexPath.section];
+    NSArray *vars = [lfo objectForKey: @"vars"];
     
-    NSLog( @"cellForRowAtIndexPath %li, %li", (long)indexPath.section, (long)indexPath.row );
-    cell.textLabel.text = [lfo objectForKey: @"lf"];
+    if (indexPath.row == 0){
+        cell.textLabel.text = [lfo objectForKey: @"lf"];
+        cell.viewForBaselineLayout.backgroundColor = [UIColor lightGrayColor];
+    } else {
+        lfo = [vars objectAtIndex: indexPath.row-1];
+        cell.textLabel.text = [lfo objectForKey: @"lf"];
+        cell.viewForBaselineLayout.backgroundColor = [UIColor whiteColor];
+    }
+    cell.detailTextLabel.text = [NSString stringWithFormat: @"freq: %@ since: %@",
+                                 [lfo objectForKey: @"freq"],
+                                 [lfo objectForKey: @"since"] ];
     
-    cell.detailTextLabel.text = @"...";
 
     cell.textLabel.font = [UIFont boldSystemFontOfSize: 14];
     
@@ -113,5 +129,103 @@ NSArray *assetData;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
+/*
+ JSON: (
+ {
+
+ lfs =         (
+ {
+ freq = 267;
+ lf = "heavy meromyosin";
+ since = 1971;
+ vars =                 (
+ {
+ freq = 244;
+ lf = "heavy meromyosin";
+ since = 1971;
+ },
+ {
+ freq = 12;
+ lf = "Heavy meromyosin";
+ since = 1975;
+ },
+ {
+ freq = 5;
+ lf = "H-meromyosin";
+ since = 1975;
+ },
+ {
+ freq = 4;
+ lf = "heavy-meromyosin";
+ since = 1977;
+ },
+ {
+ freq = 1;
+ lf = "heavy  meromyosin";
+ since = 1976;
+ },
+ {
+ freq = 1;
+ lf = "H-Meromyosin";
+ since = 1976;
+ }
+ );
+ },
+ {
+ freq = 245;
+ lf = "hidden Markov model";
+ since = 1990;
+ vars =                 (
+ {
+ freq = 148;
+ lf = "hidden Markov model";
+ since = 1992;
+ },
+ {
+ freq = 29;
+ lf = "Hidden Markov Model";
+ since = 1993;
+ },
+ {
+ freq = 26;
+ lf = "hidden Markov models";
+ since = 1995;
+ },
+ {
+ freq = 13;
+ lf = "Hidden Markov Models";
+ since = 2001;
+ },
+ {
+ freq = 9;
+ lf = "Hidden Markov model";
+ since = 1994;
+ },
+ {
+ freq = 6;
+ lf = "Hidden Markov models";
+ since = 1995;
+ },
+ {
+ freq = 2;
+ lf = "Hidden Markov Modeling";
+ since = 2007;
+ },
+ {
+ freq = 2;
+ lf = "hidden Markov Model";
+ since = 2008;
+ },
+ {
+ freq = 2;
+ lf = "Hidden Markov modeling";
+ since = 2000;
+ },
+ {
+ freq = 2;
+ lf = "hidden Markov modeling";
+ since = 1990;
+ },
+ */
 
 @end

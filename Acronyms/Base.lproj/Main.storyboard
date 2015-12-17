@@ -31,7 +31,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DR2-km-FGd">
-                                <rect key="frame" x="29" y="111" width="300" height="300"/>
+                                <rect key="frame" x="29" y="111" width="300" height="437"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="V32-qd-Elv"/>
@@ -43,9 +43,9 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="YC1-Y1-a0Y"/>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="qxS-cO-A7R"/>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="6Ke-SJ-iTe"/>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="lPV-R8-xOq"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="qxS-cO-A7R"/>
                     </toolbarItems>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
