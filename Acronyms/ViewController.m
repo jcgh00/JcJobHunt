@@ -12,7 +12,6 @@
 #import "ViewController.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "MBProgressHUD.h"
-#import <unistd.h>
 
 NSArray *assetData;
 
